@@ -2,7 +2,6 @@
 # El return es una tupla que contiene sus campos: id, nombre, nacimiento, dni y altura.
 # Si no encuentra ningun registro, devuelve False.
 
-import sqlite3
 import datetime
 import sqlite3
 
