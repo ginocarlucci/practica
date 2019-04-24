@@ -21,11 +21,6 @@ def buscar_persona(id_persona):
     else:
         return False
 
-juan= agregar_persona('juan perez', datetime.datetime(1988, 5, 15), 32165498, 180)
-buscar_persona(juan)
-
-'''
-
 @reset_tabla
 def pruebas():
     juan = buscar_persona(agregar_persona('juan perez', datetime.datetime(1988, 5, 15), 32165498, 180))
@@ -34,4 +29,4 @@ def pruebas():
 
 if __name__ == '__main__':
     pruebas()
-'''
+
