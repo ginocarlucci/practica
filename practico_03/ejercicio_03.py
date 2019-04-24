@@ -3,27 +3,28 @@
 
 import sqlite3
 import datetime
+import sqlite3
 
 from practico_03.ejercicio_01 import reset_tabla
 from practico_03.ejercicio_02 import agregar_persona
 
 
+
 def borrar_persona(id_persona):
-    db=sqlite3.connect('mibase')
-    cur=db.cursor()
-    band=False
-    cSQL='SELECT id FROM personas where id='+str(id_persona)
-    cur.execute(cSQL)
+
+    db = sqlite3.connect('mibase')
+    cursor = db.cursor()
+    cSQL = 'SELECT idPersona FROM Personas WHERE idPersona = '+str(id_persona)
+    cursor.execute(cSQL)
     db.commit()
-    band = False
-    if(cur.fetchone()):
-        cSQL = 'DELETE from personas where id='+str(id_persona)
-        cur.execute(cSQL)
-        band=True
+    respuesta = False
+    if(cursor.fetchone()):
+        respuesta = True
+        cSQL = 'DELETE FROM Personas WHERE idPersona = '+str(id_persona)
+        cursor.execute(cSQL)
         db.commit()
     db.close()
-    return band
-
+    return respuesta
 
 @reset_tabla
 def pruebas():

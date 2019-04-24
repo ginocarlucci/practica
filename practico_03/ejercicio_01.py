@@ -8,21 +8,23 @@
 # Implementar la funcion borrar_tabla, que borra la tabla creada anteriormente.
 import sqlite3
 
+import sqlite3
+
 def crear_tabla():
-    db=sqlite3.connect('mibase')
-    cur=db.cursor()
-    cSQL='CREATE TABLE IF NOT EXISTS personas(id INTEGER PRIMARY KEY ASC, nombre TEXT(30), fecha_nacimiento date, dni int(11), altura int(11))'
-    cur.execute(cSQL)
+    db = sqlite3.connect('mibase')
+    cursor = db.cursor()
+    cSQL = 'CREATE TABLE IF NOT EXISTS Personas(idPersona INTEGER PRIMARY KEY ,nombre varchar(30) ,fechaNacimiento date ,DNI int ,altura int)'
+    cursor.execute(cSQL)
     db.commit()
     db.close()
 
-
-
 def borrar_tabla():
-    db=sqlite3.connect('mibase')
-    cur=db.cursor()
-    cSQL = 'DROP TABLE IF EXISTS personas'
-    cur.execute(cSQL)
+
+    db = sqlite3.connect('mibase')
+    cursor = db.cursor()
+    cSQL = 'DROP TABLE IF EXISTS Personas'
+    cursor.execute(cSQL)
+
     db.commit()
     db.close()
 
