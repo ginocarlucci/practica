@@ -1,6 +1,5 @@
 # Implementar la funcion borrar_persona, que elimina un registro en la tabla Persona.
 # Devuelve un booleano en base a si encontro el registro y lo borro o no.
-
 import sqlite3
 import datetime
 import sqlite3
