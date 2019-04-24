@@ -1,6 +1,7 @@
 # Implementar la funcion borrar_persona, que elimina un registro en la tabla Persona.
 # Devuelve un booleano en base a si encontro el registro y lo borro o no.
 
+import sqlite3
 import datetime
 
 from practico_03.ejercicio_01 import reset_tabla
@@ -8,7 +9,20 @@ from practico_03.ejercicio_02 import agregar_persona
 
 
 def borrar_persona(id_persona):
-    return False
+    db=sqlite3.connect('mibase')
+    cur=db.cursor()
+    band=False
+    cSQL='SELECT id FROM personas where id='+str(id_persona)
+    cur.execute(cSQL)
+    db.commit()
+    band = False
+    if(cur.fetchone()):
+        cSQL = 'DELETE from personas where id='+str(id_persona)
+        cur.execute(cSQL)
+        band=True
+        db.commit()
+    db.close()
+    return band
 
 
 @reset_tabla
@@ -18,3 +32,5 @@ def pruebas():
 
 if __name__ == '__main__':
     pruebas()
+
+
