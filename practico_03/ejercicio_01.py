@@ -26,7 +26,6 @@ def borrar_tabla():
     db.commit()
     db.close()
 
-
 # no modificar
 def reset_tabla(func):
     def func_wrapper():
