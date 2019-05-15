@@ -2,7 +2,6 @@
 # Devuelve un booleano en base a si encontro el registro y lo borro o no.
 import sqlite3
 import datetime
-import sqlite3
 
 from practico_03.ejercicio_01 import reset_tabla
 from practico_03.ejercicio_02 import agregar_persona

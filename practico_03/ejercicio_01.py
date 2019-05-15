@@ -13,7 +13,7 @@ import sqlite3
 def crear_tabla():
     db = sqlite3.connect('mibase')
     cursor = db.cursor()
-    cSQL = 'CREATE TABLE IF NOT EXISTS Personas(idPersona INTEGER PRIMARY KEY ,nombre varchar(30) ,fechaNacimiento datetime ,DNI int ,altura int)'
+    cSQL = 'CREATE TABLE IF NOT EXISTS Personas(idPersona INTEGER PRIMARY KEY AUTOINCREMENT ,nombre varchar(30) ,fechaNacimiento datetime ,DNI int ,altura int)'
     cursor.execute(cSQL)
     db.commit()
     db.close()
