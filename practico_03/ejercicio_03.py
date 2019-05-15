@@ -3,12 +3,17 @@
 
 import datetime
 
-from practico_03.ejercicio_01 import reset_tabla
-from practico_03.ejercicio_02 import agregar_persona
-
+from ejercicio_01 import reset_tabla,Persona
+from ORM import Base,engine,Persona,session
+from ejercicio_02 import agregar_persona
 
 def borrar_persona(id_persona):
-    return False
+    if(session.query(Persona).filter(Persona.idPersona == id_persona).count()==1):
+        session.query(Persona).filter(Persona.idPersona == id_persona).delete()
+        session.commit()
+        return True
+    else:
+        return False
 
 
 @reset_tabla

@@ -1,19 +1,10 @@
-# Implementar la funcion crear_tabla, que cree una tabla Persona con:
-# - IdPersona: Int() (autoincremental)
-# - Nombre: Char(30)
-# - FechaNacimiento: Date()
-# - DNI: Int()
-# - Altura: Int()
-
-# Implementar la funcion borrar_tabla, que borra la tabla creada anteriormente.
-
-
+from ORM import Base,engine,session,Persona
 def crear_tabla():
-    pass
+    Persona.__table__.create()
 
 
 def borrar_tabla():
-    pass
+    Persona.__table__.drop()
 
 
 # no modificar

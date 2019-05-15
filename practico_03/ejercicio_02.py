@@ -3,11 +3,18 @@
 
 import datetime
 
-from practico_03.ejercicio_01 import reset_tabla
-
+from ejercicio_01 import reset_tabla,Persona
+from ORM import Base,engine,Persona,session
 
 def agregar_persona(nombre, nacimiento, dni, altura):
-    return 0
+    persona = Persona()
+    persona.nombre = nombre
+    persona.fechaNacimiento = nacimiento
+    persona.DNI = dni
+    persona.altura = altura
+    session.add(persona)
+    session.commit()
+    return persona.idPersona
 
 
 @reset_tabla

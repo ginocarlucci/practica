@@ -5,15 +5,15 @@
 
 # Implementar la funcion borrar_tabla, que borra la tabla creada anteriormente.
 
-from practico_03.ejercicio_01 import borrar_tabla, crear_tabla
-
+from ejercicio_01 import borrar_tabla, crear_tabla
+from ORM import Base,engine,Persona,session,PersonaPeso
 
 def crear_tabla_peso():
-    pass
+    PersonaPeso.__table__.create()
 
 
 def borrar_tabla_peso():
-    pass
+    PersonaPeso.__table__.drop()
 
 
 # no modificar
