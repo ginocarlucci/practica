@@ -10,13 +10,13 @@ def click(boton):
     global operador
     if(boton == "="):
         if(operador == "+"):
-            total.set(total1 + float(total.get()[total.get().find("+"):]))
+            total.set(total1 + float(total.get()[total.get().find("+")+1:]))
         elif(operador=="-"):
-            total.set(total1 - float(total.get()[total.get().find("-"):]))
+            total.set(total1 - float(total.get()[total.get().find("-")+1:]))
         elif(operador=="/"):
-            total.set(total1 / float(total.get()[total.get().find("/"):]))
+            total.set(total1 / float(total.get()[total.get().find("/")+1:]))
         elif(operador=="*"):
-            total.set(total1 * float(total.get()[total.get().find("*"):]))
+            total.set(total1 * float(total.get()[total.get().find("*")+1:]))
     elif(boton == "Ce"):
         total.set("")
     else:
@@ -43,6 +43,7 @@ def click(boton):
                 operador = "*"
             else:
                 total.set(total.get()+boton)
+            print(total1)
         else:
             total.set(boton)
 
