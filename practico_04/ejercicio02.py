@@ -5,9 +5,11 @@
 from tkinter import *
 total1 = 0
 operador = ""
+yaOpero = 0
 def click(boton):
     global total1
     global operador
+    global yaOpero
     if(boton == "="):
         if(operador == "+"):
             total.set(total1 + float(total.get()[total.get().find("+")+1:]))
@@ -19,31 +21,67 @@ def click(boton):
             total.set(total1 * float(total.get()[total.get().find("*")+1:]))
     elif(boton == "Ce"):
         total.set("")
+        yaOpero=0
     else:
         if(len(total.get())>0):
             if(boton=="+"):
-                total.set(total.get() + boton)
-                op = total.get().find("+")
-                total1 = float(total.get()[0:op])
-                operador = "+"
+                if(yaOpero==1):
+                    click("=")
+                    total.set(total.get() + boton)
+                    op = total.get().find("+")
+                    total1 = float(total.get()[0:op])
+                    operador = "+"
+                    yaOpero = 1
+                else:
+                    total.set(total.get() + boton)
+                    op = total.get().find("+")
+                    total1 = float(total.get()[0:op])
+                    operador = "+"
+                    yaOpero=1
             elif(boton=="-"):
-                total.set(total.get() + boton)
-                op = total.get().find("-")
-                total1 = float(total.get()[0:op])
-                operador = "-"
+                if (yaOpero == 1):
+                    click("=")
+                    total.set(total.get() + boton)
+                    op = total.get().find("-")
+                    total1 = float(total.get()[0:op])
+                    operador = "-"
+                    yaOpero = 1
+                else:
+                    total.set(total.get() + boton)
+                    op = total.get().find("-")
+                    total1 = float(total.get()[0:op])
+                    operador = "-"
+                    yaOpero = 1
             elif (boton == "/"):
-                total.set(total.get() + boton)
-                op = total.get().find("/")
-                total1 = float(total.get()[0:op])
-                operador = "/"
+                if (yaOpero == 1):
+                    click("=")
+                    total.set(total.get() + boton)
+                    op = total.get().find("-")
+                    total1 = float(total.get()[0:op])
+                    operador = "/"
+                    yaOpero = 1
+                else:
+                    total.set(total.get() + boton)
+                    op = total.get().find("/")
+                    total1 = float(total.get()[0:op])
+                    operador = "/"
+                    yaOpero = 1
             elif (boton == "*"):
-                total.set(total.get() + boton)
-                op = total.get().find("*")
-                total1 = float(total.get()[0:op])
-                operador = "*"
+                if (yaOpero == 1):
+                    click("=")
+                    total.set(total.get() + boton)
+                    op = total.get().find("-")
+                    total1 = float(total.get()[0:op])
+                    operador = "*"
+                    yaOpero = 1
+                else:
+                    total.set(total.get() + boton)
+                    op = total.get().find("*")
+                    total1 = float(total.get()[0:op])
+                    operador = "*"
+                    yaOpero = 1
             else:
                 total.set(total.get()+boton)
-            print(total1)
         else:
             total.set(boton)
 
