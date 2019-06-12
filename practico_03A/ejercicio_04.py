@@ -10,25 +10,11 @@ from ORM import Base,engine,Persona,session
 from ejercicio_02 import agregar_persona
 
 def buscar_persona(id_persona):
-<<<<<<< HEAD:practico_03A/ejercicio_04.py
     if(session.query(Persona).filter(Persona.idPersona == id_persona).count()==1):
         persona = session.query(Persona).filter(Persona.idPersona == id_persona).first()
         return (persona.idPersona,persona.nombre,persona.fechaNacimiento,persona.DNI,persona.altura)
     else:
         return False
-
-=======
-    db = sqlite3.connect('mibase')
-    cursor = db.cursor()
-    cSQL = 'SELECT * FROM Personas WHERE idPersona = '+str(id_persona)
-    cursor.execute(cSQL)
-    db.commit()
-    elem = cursor.fetchone()
-    if(elem):
-        return elem
-    else:
-        return False
->>>>>>> master:practico_03/ejercicio_04.py
 
 @reset_tabla
 def pruebas():

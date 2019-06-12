@@ -9,29 +9,12 @@ from ejercicio_02 import agregar_persona
 
 
 def borrar_persona(id_persona):
-<<<<<<< HEAD:practico_03A/ejercicio_03.py
     if(session.query(Persona).filter(Persona.idPersona == id_persona).count()==1):
         session.query(Persona).filter(Persona.idPersona == id_persona).delete()
         session.commit()
         return True
     else:
         return False
-=======
->>>>>>> master:practico_03/ejercicio_03.py
-
-    db = sqlite3.connect('mibase')
-    cursor = db.cursor()
-    cSQL = 'SELECT idPersona FROM Personas WHERE idPersona = '+str(id_persona)
-    cursor.execute(cSQL)
-    db.commit()
-    respuesta = False
-    if(cursor.fetchone()):
-        respuesta = True
-        cSQL = 'DELETE FROM Personas WHERE idPersona = '+str(id_persona)
-        cursor.execute(cSQL)
-        db.commit()
-    db.close()
-    return respuesta
 
 @reset_tabla
 def pruebas():

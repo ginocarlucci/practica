@@ -10,7 +10,6 @@
 import datetime
 import sqlite3
 
-<<<<<<< HEAD:practico_03A/ejercicio_07.py
 from ejercicio_02 import agregar_persona
 from ejercicio_06 import reset_tabla
 from ejercicio_04 import buscar_persona
@@ -32,37 +31,6 @@ def agregar_peso(id_persona, fecha, peso):
     else:
         return False
 
-=======
-from practico_03.ejercicio_02 import agregar_persona
-from practico_03.ejercicio_06 import reset_tabla
-from practico_03.ejercicio_04 import buscar_persona
-
-
-def agregar_peso(id_persona, fecha, peso):
-    db = sqlite3.connect('mibase')
-    cursor = db.cursor()
-    persona = buscar_persona(id_persona)
-    if(persona):
-        cSQL = 'SELECT idPersona, Fecha, peso FROM PersonaPeso WHERE idPersona = ? and Fecha > ?'
-        data = (id_persona,fecha)
-        cursor.execute(cSQL,data)
-        db.commit()
-        elem = cursor.fetchone()
-        if(elem):
-            db.close()
-            return False
-        else:
-            cSQL = 'insert into PersonaPeso (idPersona, Fecha, peso) Values (?,?,?)'
-            datos = (id_persona,fecha,peso)
-            cursor.execute(cSQL,datos)
-            id = cursor.lastrowid
-            db.commit()
-            db.close()
-            return id
-    else:
-        db.close()
-        return False
->>>>>>> master:practico_03/ejercicio_07.py
 
 @reset_tabla
 def pruebas():

@@ -19,7 +19,7 @@ class Socio(Base):
     nombre = Column(String(250))
     apellido = Column(String(250))
 
-engine = create_engine('sqlite://sqlalchemy_ejemplo0.db')
+engine = create_engine('sqlite:///sqlalchemy_ejemplo0.db')
 
 Base.metadata.bind = engine
 
