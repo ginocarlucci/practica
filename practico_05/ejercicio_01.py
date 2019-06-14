@@ -5,26 +5,15 @@
 # - apellido: string (longitud 250)
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
 
 class Socio(Base):
     __tablename__ = 'socios'
-    id = Column(Integer, primary_key=True)
-    dni = Column(Integer, unique=True)
-    nombre = Column(String(250))
-    apellido = Column(String(250))
 
-engine = create_engine('sqlite:///sqlalchemy_ejemplo0.db')
+    # id = Column(...)
+    # dni = Column(...)
+    # nombre = Column(...)
+    # apellido = Column(...)
 
-Base.metadata.bind = engine
-
-DBSession = sessionmaker()
-DBSession.bind = engine
-session = DBSession()
-
-Base.metadata.create_all(engine)

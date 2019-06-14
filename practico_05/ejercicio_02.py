@@ -3,18 +3,17 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from practico_05.ejercicio_01 import Base, Socio, session
+from practico_05.ejercicio_01 import Base, Socio
 
 
 class DatosSocio(object):
 
     def __init__(self):
-        """
         engine = create_engine('sqlite:///socios.db')
         Base.metadata.bind = engine
         db_session = sessionmaker()
         db_session.bind = engine
-        self.session = db_session()"""
+        self.session = db_session()
 
     def buscar(self, id_socio):
         """
@@ -22,10 +21,7 @@ class DatosSocio(object):
         Devuelve None si no encuentra nada.
         :rtype: Socio
         """
-        if(session.query(Socio).filter(Socio.id == id_socio).count()==1):
-            return session.query(Socio).filter(Socio.id == id_socio).first()
-        else:
-            return None
+        return
 
     def buscar_dni(self, dni_socio):
         """
@@ -33,10 +29,7 @@ class DatosSocio(object):
         Devuelve None si no encuentra nada.
         :rtype: Socio
         """
-        if (session.query(Socio).filter(Socio.dni == dni_socio).count() == 1):
-            return session.query(Socio).filter(Socio.dni == dni_socio).first()
-        else:
-            return None
+        return
 
     def todos(self):
         """
@@ -59,13 +52,7 @@ class DatosSocio(object):
         :type socio: Socio
         :rtype: Socio
         """
-        socio2 = Socio()
-        socio2.dni = socio.dni
-        socio2.nombre = socio.nombre
-        socio2.apellido = socio.apellido
-        session.add(socio2)
-        session.commit()
-        return socio2
+        return socio
 
     def baja(self, id_socio):
         """
@@ -73,11 +60,7 @@ class DatosSocio(object):
         Devuelve True si el borrado fue exitoso.
         :rtype: bool
         """
-        if(session.query(Socio).filter(Socio.id == id_socio).count()==1):
-            session.query(Socio).filter(Socio.id == id_socio).delete()
-            return True
-        else:
-            return False
+        return False
 
     def modificacion(self, socio):
         """
@@ -97,16 +80,15 @@ def pruebas():
 
     # baja
     assert datos.baja(socio.id) == True
+
     # buscar
     socio_2 = datos.alta(Socio(dni=12345679, nombre='Carlos', apellido='Perez'))
     assert datos.buscar(socio_2.id) == socio_2
 
     # buscar dni
-    #REPITE EL DNI, ESTO DA ERROR
-    #LLAMA A LA FUNCION EQUIVOCADA
-    #socio_2 = datos.alta(Socio(dni=12345679, nombre='Carlos', apellido='Perez'))
+    socio_2 = datos.alta(Socio(dni=12345679, nombre='Carlos', apellido='Perez'))
     assert datos.buscar_dni(socio_2.dni) == socio_2
-    """
+
     # modificacion
     socio_3 = datos.alta(Socio(dni=12345680, nombre='Susana', apellido='Gimenez'))
     socio_3.nombre = 'Moria'
@@ -126,7 +108,6 @@ def pruebas():
     datos.borrar_todos()
     assert len(datos.todos()) == 0
 
-"""
 
 if __name__ == '__main__':
     pruebas()
