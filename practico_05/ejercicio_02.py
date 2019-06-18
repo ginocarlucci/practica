@@ -3,18 +3,17 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from practico_05.ejercicio_01 import Base, Socio, session
+from practico_05.ejercicio_01 import Base, Socio
 
 
 class DatosSocio(object):
 
     def __init__(self):
-        """
         engine = create_engine('sqlite:///socios.db')
         Base.metadata.bind = engine
         db_session = sessionmaker()
         db_session.bind = engine
-        self.session = db_session()"""
+        self.session = db_session()
 
     def buscar(self, id_socio):
         """
@@ -22,8 +21,8 @@ class DatosSocio(object):
         Devuelve None si no encuentra nada.
         :rtype: Socio
         """
-        if(session.query(Socio).filter(Socio.id == id_socio).count()==1):
-            return session.query(Socio).filter(Socio.id == id_socio).first()
+        if(self.session.query(Socio).filter(Socio.id == id_socio).count()==1):
+            return self.session.query(Socio).filter(Socio.id == id_socio).first()
         else:
             return None
 
@@ -33,8 +32,8 @@ class DatosSocio(object):
         Devuelve None si no encuentra nada.
         :rtype: Socio
         """
-        if (session.query(Socio).filter(Socio.dni == dni_socio).count() == 1):
-            return session.query(Socio).filter(Socio.dni == dni_socio).first()
+        if (self.session.query(Socio).filter(Socio.dni == dni_socio).count() == 1):
+            return self.session.query(Socio).filter(Socio.dni == dni_socio).first()
         else:
             return None
 
@@ -63,8 +62,8 @@ class DatosSocio(object):
         socio2.dni = socio.dni
         socio2.nombre = socio.nombre
         socio2.apellido = socio.apellido
-        session.add(socio2)
-        session.commit()
+        self.session.add(socio2)
+        self.session.commit()
         return socio2
 
     def baja(self, id_socio):
@@ -73,8 +72,8 @@ class DatosSocio(object):
         Devuelve True si el borrado fue exitoso.
         :rtype: bool
         """
-        if(session.query(Socio).filter(Socio.id == id_socio).count()==1):
-            session.query(Socio).filter(Socio.id == id_socio).delete()
+        if(self.session.query(Socio).filter(Socio.id == id_socio).count()==1):
+            self.session.query(Socio).filter(Socio.id == id_socio).delete()
             return True
         else:
             return False
