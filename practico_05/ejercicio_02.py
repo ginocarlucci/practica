@@ -43,7 +43,8 @@ class DatosSocio(object):
         Devuelve listado de todos los socios en la base de datos.
         :rtype: list
         """
-        return []
+        sq = self.session.query(Socio).all()
+        return sq
 
     def borrar_todos(self):
         """
@@ -51,7 +52,11 @@ class DatosSocio(object):
         Devuelve True si el borrado fue exitoso.
         :rtype: bool
         """
-        return False
+        sq = self.session.query(Socio).all()
+        self.session.delete(sq)
+        if(self.session.query(Socio).all().count()==0):
+            return True
+        else: return False
 
     def alta(self, socio):
         """
