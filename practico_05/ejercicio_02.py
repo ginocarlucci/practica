@@ -52,9 +52,10 @@ class DatosSocio(object):
         Devuelve True si el borrado fue exitoso.
         :rtype: bool
         """
-        sq = self.session.query(Socio).all()
-        self.session.delete(sq)
-        if(self.session.query(Socio).all().count()==0):
+
+        self.session.query(Socio).delete()
+        self.session.commit()
+        if(self.session.query(Socio).count()==0):
             return True
         else: return False
 
@@ -80,6 +81,7 @@ class DatosSocio(object):
         """
         if(self.session.query(Socio).filter(Socio.id == id_socio).count()==1):
             self.session.query(Socio).filter(Socio.id == id_socio).delete()
+            self.session.commit()
             return True
         else:
             return False
@@ -91,7 +93,17 @@ class DatosSocio(object):
         :type socio: Socio
         :rtype: Socio
         """
-        return socio
+
+        if(self.session.query(Socio).filter(Socio.id == socio.id).count() == 1):
+            socioActualizado = self.session.query(Socio).filter(Socio.id == socio.id).first()
+            socioActualizado.dni = socio.dni
+            socioActualizado.nombre = socio.nombre
+            socioActualizado.apellido = socio.apellido
+            self.session.add(socioActualizado)
+            self.session.commit()
+            return socio
+        else:
+            return False
 
 
 def pruebas():
@@ -103,7 +115,7 @@ def pruebas():
     # baja
     assert datos.baja(socio.id) == True
     # buscar
-    socio_2 = datos.alta(Socio(dni=12345679, nombre='Carlos', apellido='Perez'))
+    socio_2 = datos.alta(Socio(dni=12345678, nombre='Carlos', apellido='Perez'))
     assert datos.buscar(socio_2.id) == socio_2
 
     # buscar dni
