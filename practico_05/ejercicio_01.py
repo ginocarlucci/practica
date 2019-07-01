@@ -11,9 +11,3 @@ Base = declarative_base()
 
 class Socio(Base):
     __tablename__ = 'socios'
-
-    # id = Column(...)
-    # dni = Column(...)
-    # nombre = Column(...)
-    # apellido = Column(...)
-
