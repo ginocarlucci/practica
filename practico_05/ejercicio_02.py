@@ -4,7 +4,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from practico_05.ejercicio_01 import Base, Socio
-
+from sqlalchemy import exc
 
 class DatosSocio(object):
 
@@ -69,8 +69,12 @@ class DatosSocio(object):
         socio2.dni = socio.dni
         socio2.nombre = socio.nombre
         socio2.apellido = socio.apellido
-        self.session.add(socio2)
-        self.session.commit()
+        try:
+            self.session.add(socio2)
+            self.session.commit()
+        except exc.IntegrityError:
+            self.session.rollback()
+            socio2 = self.buscar_dni(socio.dni)
         return socio2
 
     def baja(self, id_socio):
@@ -116,11 +120,11 @@ def pruebas():
     assert datos.baja(socio.id) == True
 
     # buscar
-    socio_2 = datos.alta(Socio(dni=12345678, nombre='Carlos', apellido='Perez'))
+    socio_2 = datos.alta(Socio(dni=12345679, nombre='Carlos', apellido='Perez'))
     assert datos.buscar(socio_2.id) == socio_2
 
     # buscar dni
-    """socio_2 = datos.alta(Socio(dni=12345679, nombre='Carlos', apellido='Perez'))"""
+    socio_2 = datos.alta(Socio(dni=12345679, nombre='Carlos', apellido='Perez'))
     assert datos.buscar_dni(socio_2.dni) == socio_2
 
     # modificacion
