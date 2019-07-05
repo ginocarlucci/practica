@@ -46,7 +46,7 @@ class NegocioSocio(object):
         Devuelve listado de todos los socios.
         :rtype: list
         """
-        return DatosSocio.todos()
+        return DatosSocio.todos(self)
 
     def alta(self, socio):
         """
@@ -85,11 +85,11 @@ class NegocioSocio(object):
         :raise: DniRepetido
         :return: bool
         """
-        socios = DatosSocio.todos()
-        for s in socios:
-            if(s.dni == socio.dni):
-                return False
-        return True
+        if(DatosSocio.buscar_dni(socio.dni)==socio.dni):
+            raise DniRepetido("El dni ya se encuentra en uso")
+            return False
+        else:
+            return True
 
     def regla_2(self, socio):
         """
@@ -98,7 +98,27 @@ class NegocioSocio(object):
         :raise: LongitudInvalida
         :return: bool
         """
-        return False
+        nombre = 0
+        apellido = 0
+        for letra in socio.nombre:
+            nombre+=1
+        for letra in socio.apellido:
+            apellido+=1
+
+        if(nombre<self.MIN_CARACTERES):
+            raise LongitudInvalida("El nombre tiene menos de 3 caracteres")
+            return False
+        elif(nombre>self.MAX_CARACTERES):
+            raise LongitudInvalida("El nombre tiene mas de 15 caracteres")
+            return False
+        elif(apellido<self.MIN_CARACTERES):
+            raise LongitudInvalida("El apellido tiene menos de 3 caracteres")
+            return False
+        elif(apellido>self.MAX_CARACTERES):
+            raise LongitudInvalida("El apellido tiene mas de 15 caracteres")
+            return False
+        else:
+            return True
 
     def regla_3(self):
         """
@@ -107,10 +127,11 @@ class NegocioSocio(object):
         :return: bool
         """
         i = 0
-        socios = DatosSocio.todos()
+        socios = DatosSocio.todos(self)
         for s in socios:
             i+=1
         if(i<=self.MAX_SOCIOS):
             return True
         else:
+            raise MaximoAlcanzado("Se supero el limite de socios registrados")
             return False
