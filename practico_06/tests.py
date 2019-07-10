@@ -101,11 +101,13 @@ class TestsNegocio(unittest.TestCase):
         self.ns.alta(soc)
         socioABuscar = self.ns.buscar_dni(soc.dni)
         self.assertEqual(self.ns.buscar(socioABuscar.id),socioABuscar)
+        self.assertEqual(self.ns.buscar(937),None)
 
     def test_buscar_dni(self):
         socio = Socio(dni=45345678, nombre='Juan', apellido='Perez')
         self.ns.alta(socio)
         self.assertEqual((self.ns.buscar_dni(socio.dni)).dni, socio.dni)
+        self.assertEqual(self.ns.buscar_dni(937),None)
 
     def test_todos(self):
         socio = Socio(dni=45345678, nombre='Juan', apellido='Perez')
