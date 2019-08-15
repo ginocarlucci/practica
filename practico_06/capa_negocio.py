@@ -31,10 +31,7 @@ class NegocioSocio(object):
         Devuelve None si no encuentra nada.
         :rtype: Socio
         """
-        if(self.datos.buscar(id_socio)):
-            return (self.datos.buscar(id_socio))
-        else:
-            return None
+        return
 
     def buscar_dni(self, dni_socio):
         """
@@ -42,20 +39,16 @@ class NegocioSocio(object):
         Devuelve None si no encuentra nada.
         :rtype: Socio
         """
-        if(self.datos.buscar_dni(dni_socio)):
-            return self.datos.buscar_dni(dni_socio)
-        else:
-            return None
+        return
 
     def todos(self):
         """
         Devuelve listado de todos los socios.
         :rtype: list
         """
-        return self.datos.todos()
+        return []
 
     def alta(self, socio):
-
         """
         Da de alta un socio.
         Se deben validar las 3 reglas de negocio primero.
@@ -64,13 +57,7 @@ class NegocioSocio(object):
         :type socio: Socio
         :rtype: bool
         """
-        if(self.regla_1(socio)):
-            if(self.regla_2(socio)):
-                if(self.regla_3()):
-                    if (self.datos.alta(socio)):
-                        return True
-                    else:
-                        return False
+        return False
 
     def baja(self, id_socio):
         """
@@ -78,10 +65,7 @@ class NegocioSocio(object):
         Devuelve True si el borrado fue exitoso.
         :rtype: bool
         """
-        if(self.datos.baja(id_socio)):
-            return True
-        else:
-            return False
+        return False
 
     def modificacion(self, socio):
         """
@@ -92,11 +76,7 @@ class NegocioSocio(object):
         :type socio: Socio
         :rtype: bool
         """
-        if(self.regla_2(socio)):
-            if(self.datos.modificacion(socio)):
-                return True
-            else:
-                return False
+        return False
 
     def regla_1(self, socio):
         """
@@ -105,11 +85,7 @@ class NegocioSocio(object):
         :raise: DniRepetido
         :return: bool
         """
-        if(self.datos.buscar_dni(socio.dni)):
-            raise DniRepetido("El dni ya se encuentra en uso")
-            return False
-        else:
-            return True
+        return False
 
     def regla_2(self, socio):
         """
@@ -118,27 +94,7 @@ class NegocioSocio(object):
         :raise: LongitudInvalida
         :return: bool
         """
-        nombre = 0
-        apellido = 0
-        for letra in socio.nombre:
-            nombre+=1
-        for letra in socio.apellido:
-            apellido+=1
-
-        if(nombre<self.MIN_CARACTERES):
-            raise LongitudInvalida("El nombre tiene menos de 3 caracteres")
-            return False
-        elif(nombre>self.MAX_CARACTERES):
-            raise LongitudInvalida("El nombre tiene mas de 15 caracteres")
-            return False
-        elif(apellido<self.MIN_CARACTERES):
-            raise LongitudInvalida("El apellido tiene menos de 3 caracteres")
-            return False
-        elif(apellido>self.MAX_CARACTERES):
-            raise LongitudInvalida("El apellido tiene mas de 15 caracteres")
-            return False
-        else:
-            return True
+        return False
 
     def regla_3(self):
         """
@@ -146,12 +102,4 @@ class NegocioSocio(object):
         :raise: MaximoAlcanzado
         :return: bool
         """
-        i = 0
-        socios = self.datos.todos()
-        for s in socios:
-            i+=1
-        if(i<=self.MAX_SOCIOS):
-            return True
-        else:
-            raise MaximoAlcanzado("Se supero el limite de socios registrados")
-            return False
+        return False
