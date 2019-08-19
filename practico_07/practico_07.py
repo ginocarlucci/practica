@@ -90,26 +90,24 @@ def modificacion():
         e.destroy()
 
 
+def cargarTabla(tree):
+    tree["columns"] = ("nombre", "apellido", "DNI")
+    tree.heading("#0", text="ID");
+    tree.heading("nombre", text="DNI");
+    tree.heading("apellido", text="Apellido");
+    tree.heading("DNI", text="Nombre");
+
+    negocioSocio = capa_negocio.NegocioSocio()
+    totalSocios = negocioSocio.todos()
+    for i in totalSocios:
+        tree.insert("", tk.END, text=i.id, values=(i.dni, i.apellido, i.nombre))
+
+    tree.pack()
+
 root = Tk();
 root.title("ABM Socios")
-
-columnas = 4;
-negocioSocio = capa_negocio.NegocioSocio()
-totalSocios = negocioSocio.todos()
-filas = len(totalSocios)
-
-tree=ttk.Treeview()
-tree["columns"]=("nombre","apellido","DNI")
-
-tree.heading("#0", text="ID");
-tree.heading("nombre", text="DNI");
-tree.heading("apellido", text="Apellido");
-tree.heading("DNI", text="Nombre");
-
-for i in totalSocios:
-    tree.insert("",tk.END, text=i.id, values=(i.dni,i.apellido,i.nombre))
-
-tree.pack()
+tree = ttk.Treeview()
+cargarTabla(tree)
 
 Button(root,text = "Alta",command=alta).pack(side=LEFT)
 Button(root,text = "Baja",command=baja).pack(side=LEFT)
