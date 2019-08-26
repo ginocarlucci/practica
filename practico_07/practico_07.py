@@ -14,6 +14,8 @@ from practico_06 import capa_negocio
 from tkinter import ttk
 import tkinter as tk
 from practico_05.ejercicio_01 import Socio
+import easygui as eg
+
 
 def alta():
     e = Toplevel(root)
@@ -34,55 +36,70 @@ def alta():
     Button(e, text="Guardar", command=lambda: guardar(dni,nombre,apellido)).grid(column=0, row=4)
 
     def guardar(dni,nombre,apellido):
-        socio = Socio(dni=dni.get(), nombre=nombre.get(), apellido=apellido.get())
-        socioNegocio = capa_negocio.DatosSocio()
-        socioNegocio.alta(socio)
-        socio = socioNegocio.buscar_dni(dni.get())
-        tree.insert("", tk.END, text=socio.id, values=(socio.dni, socio.nombre, socio.apellido))
-        e.destroy()
+        if (dni.get()>0 and len(nombre.get())>0 and len(apellido.get())>0):
+            socio = Socio(dni=dni.get(), nombre=nombre.get(), apellido=apellido.get())
+            socioNegocio = capa_negocio.DatosSocio()
+            socioNegocio.alta(socio)
+            socio = socioNegocio.buscar_dni(dni.get())
+            tree.insert("", tk.END, text=socio.id, values=(socio.dni, socio.nombre, socio.apellido))
+            e.destroy()
+        else:
+            eg.msgbox(msg="Completa los datos para continuar",title="Datos faltantes", ok_button="continuar")
 
 def baja():
-    item = tree.selection()[0]
-    idSocio = tree.item(item,option="text")
-    socioNegocio = capa_negocio.DatosSocio()
-    socioNegocio.baja(idSocio)
-    tree.delete(item)
+    try:
+        item = tree.selection()[0]
+        idSocio = tree.item(item,option="text")
+        socioNegocio = capa_negocio.DatosSocio()
+        socioNegocio.baja(idSocio)
+        tree.delete(item)
+    except:
+        eg.msgbox(msg="Selecciona un socio para continuar" ,title="Datos faltantes", ok_button="continuar")
+
 
 def modificacion():
-    item = tree.selection()[0]
-    idSocio = tree.item(item, option="text")
-    socioNegocio = capa_negocio.DatosSocio()
-    socio = socioNegocio.buscar(idSocio)
-    print(socio.id)
+    try:
+        item = tree.selection()[0]
+        idSocio = tree.item(item, option="text")
+        socioNegocio = capa_negocio.DatosSocio()
+        socio = socioNegocio.buscar(idSocio)
 
-    e = Toplevel(root)
-    e.title("Ingresar nuevo Socio")
-    e.geometry('250x120')
-    Label(e, text="Ingrese el Dni").grid(column=0, row=0)
-    dni = IntVar()
-    dni.set(socio.dni)
-    Entry(e, textvariable=dni).grid(column=1, row=0)
+        e = Toplevel(root)
+        e.title("Ingresar nuevo Socio")
+        e.geometry('250x120')
+        Label(e, text="Ingrese el Dni").grid(column=0, row=0)
+        dni = IntVar()
+        dni.set(socio.dni)
+        Entry(e, textvariable=dni).grid(column=1, row=0)
 
-    Label(e, text="Ingrese el nombre").grid(column=0, row=1)
-    nombre = StringVar()
-    nombre.set(socio.nombre)
-    Entry(e, textvariable=nombre).grid(column=1, row=1)
+        Label(e, text="Ingrese el nombre").grid(column=0, row=1)
+        nombre = StringVar()
+        nombre.set(socio.nombre)
+        Entry(e, textvariable=nombre).grid(column=1, row=1)
 
-    Label(e, text="Ingrese el apellido").grid(column=0, row=2)
-    apellido = StringVar()
-    apellido.set(socio.apellido)
-    Entry(e, textvariable=apellido).grid(column=1, row=2)
+        Label(e, text="Ingrese el apellido").grid(column=0, row=2)
+        apellido = StringVar()
+        apellido.set(socio.apellido)
+        Entry(e, textvariable=apellido).grid(column=1, row=2)
 
-    Button(e, text="Guardar", command=lambda: guardar(dni, nombre, apellido)).grid(column=0, row=4)
+        Button(e, text="Guardar", command=lambda: guardar(dni, nombre, apellido)).grid(column=0, row=4)
 
-    def guardar(dni,nombre,apellido):
-        socio.dni = dni.get()
-        print(socio.dni)
-        socio.nombre = nombre.get()
-        socio.apellido = apellido.get()
-        socioNegocio.modificacion(socio)
-        tree.item(item,text=socio.id, values=(socio.dni,socio.nombre,socio.apellido))
-        e.destroy()
+        def guardar(dni,nombre,apellido):
+            if (dni.get() > 0 and len(nombre.get()) > 0 and len(apellido.get()) > 0):
+                socio.dni = dni.get()
+                socio.nombre = nombre.get()
+                socio.apellido = apellido.get()
+                socioNegocio.modificacion(socio)
+                tree.item(item,text=socio.id, values=(socio.dni,socio.nombre,socio.apellido))
+                e.destroy()
+            else:
+                eg.msgbox(msg="Completa los datos para continuar", title="Datos faltantes", ok_button="continuar")
+
+
+    except IndexError:
+        eg.msgbox(msg="Selecciona un socio para continuar", title="Datos faltantes", ok_button="continuar")
+    except:
+        eg.msgbox(msg="Completa los datos para continuar", title="Datos faltantes", ok_button="continuar")
 
 
 def cargarTabla(tree):
