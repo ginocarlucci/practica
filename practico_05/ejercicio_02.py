@@ -44,6 +44,7 @@ class DatosSocio(object):
         :rtype: list
         """
         sq = self.session.query(Socio).all()
+        print(sq)
         return sq
 
     def borrar_todos(self):
