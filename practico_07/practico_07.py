@@ -134,3 +134,4 @@ ttk.Button(root,text='modificar',command=modificacion).place(x=100,y=175)
 ttk.Button(root,text='eliminar',command=baja).place(x=180,y=175)
 
 root.mainloop()
+#s
